@@ -1,0 +1,34 @@
+<!-- BBCode: [youtube]{URL}[/youtube] -->
+<script type="text/javascript">
+
+// Url from youtube
+var youtube_url = "{URL}";
+
+// Define if it is https or http
+var http = youtube_url.match("https://") ? "https" : "http";
+
+// Define if it is the youtube short url
+if (youtube_url.match("youtu.be/")) {
+  // Gets the code from youtube url
+  var code = (youtube_url.substr(youtube_url.indexOf("e")+2));
+
+  // Call the function to display the video
+  embed(http, code, function(display) {
+    document.write(display);
+  });
+} else {
+  // Gets the code from youtube url
+  var code = (youtube_url.substr(youtube_url.indexOf("=")+1));
+
+  // Call the function to display the video
+  embed(http, code, function(display) {
+    document.write(display);
+  });
+}
+
+// Function that construct the embed url
+function embed(http, youtube_code, callback) {
+  callback("<iframe width=\"560\" height=\"315\" src=\"" + http + "://www.youtube.com/embed/" + code + "?rel=0\" frameborder=\"0\" allowfullscreen></iframe>");
+}
+
+</script>

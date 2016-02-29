@@ -1,0 +1,50 @@
+<!-- BBCode: [spotify]{TEXT}[/spotify] -->
+<script type="text/javascript">
+  var url = "{TEXT}";
+
+  if (url.match("spotify:track:")) {
+    var code = url.substr(url.lastIndexOf(":") + 1);
+    embedTrack(code, function (display) {
+      document.write(display);
+    });
+  } else if (url.match("/track/")) {
+    var code = url.substr(url.lastIndexOf("/") + 1);
+    embedTrack(code, function (display) {
+      document.write(display);
+    });
+  } else if (url.match(":playlist:")) {
+    var user = url.substr((url.indexOf(":user:") + 6), (url.indexOf(":playlist:") - (url.indexOf(":user:") + 6)));
+    var code = url.substr(url.indexOf(":playlist:") + 10);
+    embedPlaylist(code, user, function (display) {
+      document.write(display);
+    });
+  } else if (url.match("/playlist/")) {
+    var user = url.substr((url.indexOf("/user/") + 6), (url.indexOf("/playlist/") - (url.indexOf("/user/") + 6)));
+    var code = url.substr(url.indexOf("/playlist/") + 10);
+    embedPlaylist(code, user, function (display) {
+      document.write(display);
+    });
+  } else if (url.match(":album:")) {
+    var code = url.substr(url.indexOf(":album:")+7);
+    embedAlbum(code, function (display) {
+      document.write(display);
+    });
+  } else if (url.match("/album/")) {
+    var code = url.substr(url.indexOf("/album/")+7);
+    embedAlbum(code, function (display) {
+      document.write(display);
+    });
+  }
+
+  function embedTrack(code, callback) {
+    callback("<iframe src=\"https://embed.spotify.com/?uri=spotify:track:" + code + "\" width=\"300\" height=\"380\" frameborder=\"0\" allowtransparency=\"true\"></iframe>");
+  }
+
+  function embedPlaylist(code, user, callback) {
+    callback("<iframe src=\"https://embed.spotify.com/?uri=spotify:user:" + user + ":playlist:" + code + "\" width=\"300\" height=\"380\" frameborder=\"0\" allowtransparency=\"true\"></iframe>");
+  }
+
+  function embedAlbum(code, callback) {
+    callback("<iframe src=\"https://embed.spotify.com/?uri=spotify:album:" + code + "\" width=\"300\" height=\"380\" frameborder=\"0\" allowtransparency=\"true\"></iframe>");
+  }
+</script>
